@@ -51,7 +51,7 @@ app.use(bodyParser.urlencoded({ extended: true }));  // For form data
 
 // Main get request
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    res.sendFile(path.join(__dirname, 'log.html'));
 });
 
 app.get('/list', (req, res) => {
@@ -62,11 +62,11 @@ app.get('/list', (req, res) => {
 
 // Handle registering submission
 app.post('/submit-form', async (req, res) => {
-    const { name, email, password} = req.body; // Get form data
+    const { name, email, password, repassword} = req.body; // Get form data
 
-    if(!name || !email || !password) {
-        return res.status(400).json({ error: "Name, email and password are required!" });
-    }
+    if(!name || !email || !password || !repassword) return res.status(400).json({ error: "Name, email and password are required!" });
+
+    if(password !== repassword) return res.status(400).json({ error: "passwords need to be the same" });
 
     let co;
     try {
@@ -107,10 +107,7 @@ app.post('/submit-connection', async (req, res) => {
 
         const pwMatch = await bcrypt.compare(password, user.hashedpassword);
 
-        if(pwMatch) {
-            res.sendFile(path.join(__dirname, 'connected.html'));
-        }
-
+        if(pwMatch) res.sendFile(path.join(__dirname, 'connected.html'));
         else res.json({ exists: false, message: "Incorrect email or password." });
 
     } catch (err) {

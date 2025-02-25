@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            font-family: "Ubuntu", serif;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+
+            margin: 0;
+            padding: 0;
+
+            scroll-behavior: smooth;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            font-family: "Space Mono", serif;
+        }
+
+        #page {
+            width: 800px;
+            height: auto;
+
+            background-color: #F2EDF4;
+
+            border-radius: 40px;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            margin-bottom: 50px;
+        }
+
+        .tabcontent {
+            background-color: #F2EDF4;
+        }
+
+        .tablinks {
+            width: 50%;
+            height: 100px;
+
+            font-size: 35px;
+            font-weight: bold;
+            color: white;
+
+            border: none;
+
+            background-color: #4A3B55;
+        }
+
+        .tablinks:hover {
+            cursor: pointer;
+        }
+
+        button[name="tab1"] {
+            border-top-left-radius: 30px;
+        }
+
+        button[name="tab2"] {
+            border-top-right-radius: 30px;
+        }
+
+        #tab1 {
+            border-radius: 30px;
+
+            animation: regToLog 1s ease forwards ;
+        }
+
+        #tab2 {
+            border-radius: 30px;
+            
+            animation: logToReg 1s ease forwards ;
+        }
+
+        .inputs {
+            width: 70%;
+            height: 50px;
+
+            margin-bottom: 30px;
+            margin-left: 120px;
+
+            font-size: 20px;
+
+            opacity: 0;
+
+            animation: onChange 1.5s ease forwards;
+            animation-delay: 1s;
+        }
+
+        .submits {
+            width: 200px;
+            height: 40px;
+
+            margin-left: 120px;
+            margin-bottom: 50px;
+
+            border: none;
+            border-radius: 5px;
+
+            background-color: #7B52AB;
+
+            opacity: 0;
+
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+
+            animation: onChange 1.5s ease forwards;
+            animation-delay: 1s;
+
+            transition: 0.3s ease;
+        }
+
+        .submits:hover {
+            scale: 1.05;
+
+            background-color: #6A409F;
+
+            box-shadow: 2px 4px 10px #4A2F6D ;
+        }
+
+        /* 
+        
+            BACKGROUND
+        
+        */
+
+        body {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-size: 300% 300%;
+            background-image: linear-gradient(-45deg, #4A225D 0%, #251F2C 40%, #251F2C 60%, #311D3F 100%);
+            -webkit-animation: AnimateBG 10s ease infinite;
+            animation: AnimateBG 10s ease infinite;
+            z-index: 0;
+        }
+
+         /*
+
+            ANIMATIONS
+
+        */
+
+        @keyframes logToReg {
+            from {height: 262px;}
+            to {height: 434px;}
+        }
+
+        @keyframes regToLog {
+            from {height: 434px;}
+            to {height: 262px ;}
+        }
+
+        @keyframes onChange {
+            from {opacity: 0;}
+            to {opacity: 100;}
+        }
+
+        @keyframes m {
+            to {
+                background-position:
+                var(--s) 0,
+                calc(var(--s)/-2) calc(3*var(--s)/4),
+                calc(3*var(--s)/2) 0,
+                calc(-1*var(--s)) calc(3*var(--s)/4),
+                0 0
+            }
+        }
+
+        @-webkit-keyframes AnimateBG {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @keyframes AnimateBG {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    <title>Form Submission</title>
+</head>
+<body>
+    <section id="page" class="bg">
+
+        <div class="tabs">
+            <button name="tab1" class="tablinks" onclick="openTab(event, 'tab1', '#5A3E79')" id="default">Login</button>
+            <button name="tab2" class="tablinks" onclick="openTab(event, 'tab2', '#5A3E79')">Register</button>
+        </div>
+
+        <div id="tab1" class="tabcontent">
+            <form action="/submit-connection" method="POST">
+                <input class="inputs" type="email" id="email" name="email" placeholder=" Email" required>
+                <input class="inputs" type="password" id="password" name="password" placeholder=" Password" required><br>
+                <button type="submit" class="submits">Submit</button>
+            </form>
+        </div>
+
+        <div id="tab2" class="tabcontent">
+            <form action="/submit-form" method="POST">
+                <input class="inputs" type="text" id="name" name="name" placeholder=" Username" required>
+                <input class="inputs" type="email" id="email" name="email" placeholder=" Email" required>
+                <input class="inputs" type="password" id="password" name="password" placeholder=" Password" required>
+                <input class="inputs" type="password" id="repassword" name="repassword" placeholder=" Repeat Password" required><br>
+                <button type="submit" class="submits">Submit</button>
+            </form>
+        </div>
+
+        <script>
+            function openTab(evt, tab, color) {
+                var i, tabcontent, tablinks;
+                tabcontent = document.getElementsByClassName("tabcontent");
+                for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                }
+                tablinks = document.getElementsByClassName("tablinks");
+                for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].style.background = "";
+                    tablinks[i].className = tablinks[i].className.replace(" active", "");
+                }
+                document.getElementById(tab).style.display = "block";
+                document.getElementsByName(tab)[0].style.background = color;
+                evt.currentTarget.className += " active";
+            }
+            
+            // Get the element with id="defaultOpen" and click on it
+            document.getElementById("default").click();
+        </script>
+
+    </section>
+    
+    
+    
+</body>
+</html>
