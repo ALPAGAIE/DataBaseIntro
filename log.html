@@ -86,8 +86,9 @@
             width: 70%;
             height: 50px;
 
+            padding-left:10px;
             margin-bottom: 30px;
-            margin-left: 120px;
+            margin-left: 110px;
 
             font-size: 20px;
 
@@ -101,7 +102,7 @@
             width: 200px;
             height: 40px;
 
-            margin-left: 120px;
+            margin-left: 110px;
             margin-bottom: 50px;
 
             border: none;
@@ -216,26 +217,41 @@
 
         <div class="tabs">
             <button name="tab1" class="tablinks" onclick="openTab(event, 'tab1', '#5A3E79')" id="default">Login</button>
-            <button name="tab2" class="tablinks" onclick="openTab(event, 'tab2', '#5A3E79')">Register</button>
+            <button name="tab2" class="tablinks" onclick="openTab(event, 'tab2', '#5A3E79')" id="register">Register</button>
         </div>
 
         <div id="tab1" class="tabcontent">
             <form action="/submit-connection" method="POST">
-                <input class="inputs" type="email" id="email" name="email" placeholder=" Email" required>
-                <input class="inputs" type="password" id="password" name="password" placeholder=" Password" required><br>
+                <input class="inputs" type="email" id="email" name="email" placeholder="Email" required>
+                <input class="inputs" type="password" id="log_password" name="password" placeholder="Password" required><br>
                 <button type="submit" class="submits">Submit</button>
             </form>
         </div>
 
         <div id="tab2" class="tabcontent">
-            <form action="/submit-form" method="POST">
-                <input class="inputs" type="text" id="name" name="name" placeholder=" Username" required>
-                <input class="inputs" type="email" id="email" name="email" placeholder=" Email" required>
-                <input class="inputs" type="password" id="password" name="password" placeholder=" Password" required>
-                <input class="inputs" type="password" id="repassword" name="repassword" placeholder=" Repeat Password" required><br>
+            <form action="/submit-form" method="POST" id="registerForm">
+                <input class="inputs" type="text" id="name" name="name" placeholder="Username" required>
+                <input class="inputs" type="email" id="email" name="email" placeholder="Email" required>
+                <input class="inputs" type="password" id="reg_password" name="password" placeholder="Password" required>
+                <input class="inputs" type="password" id="repassword" name="repassword" placeholder="Repeat Password" required><br>
                 <button type="submit" class="submits">Submit</button>
             </form>
         </div>
+
+        <script>
+            document.getElementById("registerForm").addEventListener("submit", function(event) {
+                let password = document.getElementById("reg_password").value;
+                let repassword = document.getElementById("repassword").value;
+            
+                if (password !== repassword) {
+                    alert("Passwords need to be the same!");
+                    document.getElementById("reg_password").value = "";
+                    document.getElementById("repassword").value = "";
+                    event.preventDefault(); // Prevent form submission
+                }
+                else window.location.reload();
+            });
+        </script>
 
         <script>
             function openTab(evt, tab, color) {
